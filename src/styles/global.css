@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+  --color-mist: #f2f2f2;
+  --color-sage: #e8efd2;
+  --color-lilac: #beb9de;
+  --color-candied: #f7cde7;
+  --color-opal: #9ff0e6;
+  --color-blue: #2e3bff;
+  --color-ink: #17181d;
+  --color-gold: #c9a55b;
+  --color-tangerine: #ff6b1a;
+
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --breakpoint-xs: 30rem;
+}
+
+@layer base {
+  html {
+    background: var(--color-mist);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-family: var(--font-sans);
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-candied);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  img { max-width: 100%; height: auto; }
+}
+
+@utility serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Film grain overlay: an SVG noise tile, cheap and static. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity, 0.18);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Holographic foil fallback for the hero (shown until WebGL is ready, and when it is unavailable). */
+.foil {
+  background:
+    radial-gradient(60% 70% at 18% 30%, #f7cde7 0%, transparent 60%),
+    radial-gradient(50% 60% at 82% 18%, #9ff0e6 0%, transparent 60%),
+    radial-gradient(60% 60% at 72% 82%, #beb9de 0%, transparent 65%),
+    radial-gradient(40% 40% at 28% 88%, #e8efd2 0%, transparent 70%),
+    linear-gradient(135deg, #fbfafd, #edebf4);
+}
+
+/* Scroll reveal: elements start slightly lowered and transparent, then settle. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+[data-reveal].is-in { opacity: 1; transform: none; }
+.no-js [data-reveal] { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* Selector themes: each industry restyles the section through these variables. */
+.theme-panel { --fg: #f4eee3; --muted: rgba(244, 238, 227, .72); --accent: #c9a55b; --on-accent: #16120d; }
+[data-theme="realestate"] { --fg: #f4eee3; --muted: rgba(244,238,227,.72); --accent: #c9a55b; --on-accent: #16120d; }
+[data-theme="artist"]     { --fg: #ffffff; --muted: rgba(255,255,255,.78); --accent: #f7cde7; --on-accent: #2a0710; }
+[data-theme="restaurant"] { --fg: #f4eee3; --muted: rgba(244,238,227,.75); --accent: #d9b56a; --on-accent: #0b3a2e; }
+[data-theme="shop"]       { --fg: #f6efe6; --muted: rgba(246,239,230,.75); --accent: #c5e36b; --on-accent: #2b0f17; }
+[data-theme="ai"]         { --fg: #ffffff; --muted: rgba(255,255,255,.8);  --accent: #ff6b1a; --on-accent: #0a0e50; }
+
+.theme-bg { position: absolute; inset: 0; opacity: 0; transition: opacity .8s ease; }
+.theme-bg.is-active { opacity: 1; }
+.bg-realestate { background: repeating-linear-gradient(115deg, rgba(255,235,200,0) 0 60px, rgba(255,235,200,.05) 90px, rgba(255,235,200,0) 120px), radial-gradient(90% 70% at 85% 0%, #4a3a22 0, #16120d 55%, #0c0a08 100%); }
+.bg-restaurant { background: radial-gradient(70% 60% at 25% 20%, rgba(60,160,120,.3), transparent 70%), repeating-linear-gradient(95deg, #0b3a2e 0 14px, #0f4a3a 22px, #0b3a2e 34px); }
+.bg-shop { background: radial-gradient(80% 70% at 80% 10%, #5a2430 0, #3b1620 50%, #22090f 100%); }
+.bg-ai { background: radial-gradient(40% 50% at 95% 0%, #ff6b1a 0 60%, transparent 61%), #1b2bd6; }

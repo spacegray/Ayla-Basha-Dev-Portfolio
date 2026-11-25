@@ -1,0 +1,92 @@
+---
+import { site } from '../data/site';
+const types = ['Website', 'Website redesign', 'AI agents', 'Maintenance', 'Full-time role'];
+const glints = [
+  { s: 90, x: '12%', y: '18%' }, { s: 40, x: '78%', y: '12%' }, { s: 26, x: '88%', y: '58%' },
+  { s: 54, x: '46%', y: '8%' }, { s: 22, x: '30%', y: '70%' },
+];
+---
+<section id="contact" class="relative isolate overflow-hidden bg-[radial-gradient(120%_90%_at_50%_110%,#1d2340_0,#07080c_60%)] px-5 py-24 text-white sm:px-10 sm:py-32" aria-labelledby="contact-title">
+  {glints.map((g) => <span class="glint" style={`--s:${g.s}px;left:${g.x};top:${g.y}`} aria-hidden="true"><i></i></span>)}
+  <p class="eyebrow opacity-70">07 / contact</p>
+  <h2 id="contact-title" class="mt-4 text-[clamp(2.8rem,8vw,6.5rem)] leading-[0.92] font-medium tracking-[-0.04em]" data-reveal>
+    Let’s build <span class="serif-accent holo-text">together.</span>
+  </h2>
+  <div class="mt-14 grid gap-14 lg:grid-cols-[1fr_1.2fr]">
+    <div data-reveal>
+      <p class="max-w-md text-[15px] leading-relaxed text-white/80">Tell me about your business and what you need. Freelance sites, redesigns, AI agents, maintenance, or a full-time role: I reply within two business days.</p>
+      <a href={`mailto:${site.email}`} class="mt-8 inline-block text-2xl font-medium underline decoration-candied decoration-2 underline-offset-8 sm:text-3xl">{site.email}</a>
+      <ul class="mt-8 flex gap-5 font-mono text-xs">
+        {site.socials.map((s) => <li><a href={s.href} target="_blank" rel="noopener">{s.label} ↗</a></li>)}
+      </ul>
+    </div>
+
+    <form id="contact-form" class="grid gap-5" action={site.formEndpoint || undefined} method="POST" data-reveal novalidate>
+      <fieldset>
+        <legend class="eyebrow mb-3 text-white/70">I’m looking for</legend>
+        <div class="flex flex-wrap gap-2">
+          {types.map((t, i) => (
+            <label class="pill cursor-pointer">
+              <input type="radio" name="type" value={t} class="peer sr-only" checked={i === 0} />
+              <span class="block rounded-full border border-white/35 px-4 py-2 text-sm peer-checked:border-candied peer-checked:bg-candied peer-checked:text-ink peer-focus-visible:outline-2 peer-focus-visible:outline-blue">{t}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <label class="field"><span>Name</span><input name="name" autocomplete="name" required /></label>
+        <label class="field"><span>Email</span><input name="email" type="email" autocomplete="email" required /></label>
+      </div>
+      <label class="field"><span>Your business and what you need</span><textarea name="message" rows="5" required></textarea></label>
+      <p id="form-status" class="min-h-5 text-sm text-candied" role="status" aria-live="polite"></p>
+      <button class="justify-self-start rounded-full bg-white px-6 py-3 text-sm font-medium text-ink hover:bg-candied">Send message →</button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .field { display: grid; gap: .4rem; }
+  .field > span { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.7); }
+  .field input, .field textarea { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.25); border-radius: .75rem; padding: .8rem 1rem; color: #fff; font-size: 15px; }
+  .field input:focus, .field textarea:focus { outline: 2px solid var(--color-candied); outline-offset: 1px; }
+  .holo-text { background: linear-gradient(90deg, #fff, #f7cde7, #9ff0e6, #fff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .glint { position: absolute; width: var(--s); height: var(--s); pointer-events: none; z-index: -1; animation: twinkle 4s ease-in-out infinite; }
+  .glint::before, .glint::after { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+  .glint::before { width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #fff, transparent); }
+  .glint::after { width: 2px; height: 100%; background: linear-gradient(180deg, transparent, #fff, transparent); }
+  .glint i { position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; border-radius: 50%; background: #fff; transform: translate(-50%, -50%); box-shadow: 0 0 10px 4px rgba(255,255,255,.7), 0 0 24px 8px rgba(160,200,255,.45); }
+  .glint:nth-of-type(2n) { animation-delay: 1.3s; } .glint:nth-of-type(3n) { animation-delay: 2.1s; }
+  @keyframes twinkle { 0%, 100% { opacity: .9; transform: scale(1); } 50% { opacity: .45; transform: scale(.8); } }
+</style>
+
+<script>
+  import { site } from '../data/site';
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const status = document.getElementById('form-status')!;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const missing = ['name', 'email', 'message'].filter((k) => !String(data.get(k) ?? '').trim());
+    const email = String(data.get('email') ?? '');
+    if (missing.length) { status.textContent = `Please fill in your ${missing.join(', ')}.`; (form.elements.namedItem(missing[0]) as HTMLElement)?.focus(); return; }
+    if (!/^\S+@\S+\.\S+$/.test(email)) { status.textContent = 'Please check your email address.'; (form.elements.namedItem('email') as HTMLElement)?.focus(); return; }
+
+    if (!site.formEndpoint) {
+      // No form service configured yet: open the visitor's email app with the message filled in.
+      const subject = encodeURIComponent(`${data.get('type')} inquiry from ${data.get('name')}`);
+      const body = encodeURIComponent(`${data.get('message')}\n\n${data.get('name')} · ${email}`);
+      window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`;
+      status.textContent = 'Opening your email app…';
+      return;
+    }
+    status.textContent = 'Sending…';
+    try {
+      const res = await fetch(site.formEndpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      status.textContent = 'Thanks, your message is on its way. I’ll reply within two business days.';
+    } catch {
+      status.textContent = `That didn’t send. Please email ${site.email} directly.`;
+    }
+  });
+</script>

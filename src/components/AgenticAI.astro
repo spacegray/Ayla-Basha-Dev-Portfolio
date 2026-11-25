@@ -1,0 +1,52 @@
+---
+const lines = [
+  { t: '$ agent run inquiry-triage', c: 'cmd' },
+  { t: '✓ read 14 new messages · tool: email.search', c: 'ok' },
+  { t: '✓ matched 3 to open quotes · tool: sheets.lookup', c: 'ok' },
+  { t: '✓ drafted 3 replies in your voice', c: 'ok' },
+  { t: '⏸ holding drafts for your approval', c: 'hold' },
+];
+const tools = ['Claude Code', 'Claude Agent SDK', 'MCP servers', 'Tool use', 'Multi-agent workflows', 'Skills and memory'];
+const uses = [
+  { title: 'Triage', body: 'New inquiries sorted, summarized and routed before you open your inbox.' },
+  { title: 'Draft', body: 'Quotes, replies and follow-ups written in your voice and held for review.' },
+  { title: 'Connect', body: 'Email, calendar, docs and your website wired together with MCP.' },
+];
+---
+<section id="ai" class="relative isolate overflow-hidden bg-[#1b2bd6] px-5 py-24 text-white sm:px-10 sm:py-32" aria-labelledby="ai-title">
+  <div class="absolute -right-24 -top-24 -z-10 h-[28rem] w-[28rem] rounded-full bg-tangerine" aria-hidden="true"></div>
+  <div class="absolute -bottom-10 left-0 -z-10 h-40 w-1/2 bg-tangerine" aria-hidden="true"></div>
+  <p class="eyebrow opacity-80">04 / agentic AI</p>
+  <h2 id="ai-title" class="mt-4 max-w-[16ch] text-[clamp(2.4rem,6vw,4.75rem)] leading-[0.95] font-medium tracking-[-0.035em]" data-reveal>
+    Agents that handle <span class="serif-accent">the busywork.</span>
+  </h2>
+  <div class="mt-12 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+    <div class="term rounded-xl border border-white/20 bg-[rgba(10,14,80,.6)] p-6 font-mono text-[13px] leading-8 sm:p-8" data-reveal role="img" aria-label="Sample agent run: reads 14 messages, matches 3 to open quotes, drafts 3 replies, and holds them for approval.">
+      <p class="mb-2 text-[11px] opacity-50" aria-hidden="true">sample run</p>
+      {lines.map((l, i) => (
+        <p class:list={['line', l.c === 'ok' && 'text-white', l.c === 'hold' && 'text-[#9ff0e6]']} style={`--d:${i}`} aria-hidden="true">
+          {l.t.startsWith('✓') ? <><span class="text-[#ffb27a]">✓</span>{l.t.slice(1)}</> : l.t}
+        </p>
+      ))}
+    </div>
+    <div>
+      <ul class="space-y-0">
+        {uses.map((u, i) => (
+          <li class="border-t border-white/35 py-5 last:border-b" data-reveal style={`--i:${i}`}>
+            <p class="text-xl font-medium">{u.title}</p>
+            <p class="mt-1 text-sm text-white/80">{u.body}</p>
+          </li>
+        ))}
+      </ul>
+      <ul class="mt-8 flex flex-wrap gap-2" aria-label="Tools">
+        {tools.map((t) => <li class="rounded-full border border-white/40 px-3 py-1 font-mono text-[11px]">{t}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .term .line { opacity: 0; transform: translateX(-6px); transition: opacity .4s, transform .4s; transition-delay: calc(var(--d) * 380ms + 200ms); }
+  .term.is-in .line { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .term .line { opacity: 1; transform: none; } }
+</style>

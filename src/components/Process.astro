@@ -1,0 +1,22 @@
+---
+const steps = [
+  { n: '01', t: 'Discover', b: 'How your business works, who your customers are, and what the site has to do for them.' },
+  { n: '02', t: 'Design', b: 'A look made for your brand, tested on a phone first, with your real content.' },
+  { n: '03', t: 'Build', b: 'Fast, accessible code, with the tools your business needs: search, booking, shop or agents.' },
+  { n: '04', t: 'Launch', b: 'Search setup, analytics, and a walkthrough so you can update it yourself.' },
+  { n: '05', t: 'Maintain', b: 'Ongoing updates and new pages as you grow. I still maintain the sites I build.' },
+];
+---
+<section class="grain relative bg-mist px-5 py-24 sm:px-10 sm:py-32" aria-labelledby="process-title" style="--grain-opacity:.15">
+  <p class="eyebrow opacity-60">05 / how we work</p>
+  <h2 id="process-title" class="mt-4 text-[clamp(2.4rem,6vw,4.75rem)] leading-[0.95] font-medium tracking-[-0.035em]" data-reveal>From first call to <span class="serif-accent">years later.</span></h2>
+  <ol class="mt-14 grid gap-px overflow-hidden rounded-2xl bg-ink/10 sm:grid-cols-2 lg:grid-cols-5">
+    {steps.map((s, i) => (
+      <li class="bg-mist p-6" data-reveal style={`--i:${i}`}>
+        <span class="font-mono text-xs opacity-50">{s.n}</span>
+        <p class="mt-6 text-2xl font-medium">{s.t}</p>
+        <p class="mt-2 text-sm leading-relaxed opacity-70">{s.b}</p>
+      </li>
+    ))}
+  </ol>
+</section>

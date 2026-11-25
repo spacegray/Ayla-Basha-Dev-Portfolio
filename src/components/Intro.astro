@@ -1,0 +1,37 @@
+---
+import { stats } from '../data/site';
+const text =
+  'I design and build websites that load fast, read clearly and fit the way each business actually works, plus AI agents that handle the busywork behind them. Before code, I spent ten years behind the decks, so I build for people, not just browsers.';
+const words = text.split(' ');
+---
+<section id="intro" class="grain relative bg-mist px-5 py-28 sm:px-10 sm:py-40" aria-labelledby="intro-title" style="--grain-opacity:.15">
+  <p class="eyebrow mb-8 opacity-60" id="intro-title">01 / about</p>
+  <p class="intro-text max-w-[26ch] text-[clamp(1.75rem,4.2vw,3.6rem)] leading-[1.12] tracking-[-0.015em] sm:max-w-[30ch]">
+    {words.map((w) => (
+      <span class:list={['w', (w === 'agents' || w === 'people,') && 'serif-accent']}>{w} </span>
+    ))}
+  </p>
+  <dl class="mt-20 grid gap-8 sm:grid-cols-3">
+    {stats.map((s, i) => (
+      <div class="border-t border-ink pt-4" data-reveal style={`--i:${i}`}>
+        <dt class="sr-only">{s.label}</dt>
+        <dd class="text-5xl font-medium tracking-tight sm:text-6xl">{s.value}</dd>
+        <dd class="mt-2 max-w-[28ch] font-mono text-xs opacity-60">{s.label}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<script>
+  import { prefersReducedMotion } from '../scripts/reveal';
+  const words = document.querySelectorAll<HTMLElement>('.intro-text .w');
+  if (!prefersReducedMotion() && words.length) {
+    Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([{ gsap }, { ScrollTrigger }]) => {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.fromTo(words, { opacity: 0.14 }, {
+        opacity: 1, stagger: 0.08, ease: 'none',
+        scrollTrigger: { trigger: '.intro-text', start: 'top 80%', end: 'bottom 45%', scrub: true },
+      });
+    });
+  }
+</script>
