@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "check": "astro check"
+    "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.6",
@@ -16,5 +15,9 @@
     "gsap": "^3.15.1",
     "tailwindcss": "^4.3.5",
     "three": "^0.187.0"
+  },
+  "description": "Ayla Basha portfolio: Astro, Tailwind CSS 4, three.js and GSAP",
+  "engines": {
+    "node": ">=22"
   }
 }

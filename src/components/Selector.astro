@@ -53,7 +53,7 @@ const first = industries[0];
                     <i class="h-2 w-2 rounded-full bg-[#55555c]"></i><i class="h-2 w-2 rounded-full bg-[#55555c]"></i><i class="h-2 w-2 rounded-full bg-[#55555c]"></i>
                     <span class="ml-3 font-mono text-[10px] text-[#aaa]">{p.live ? new URL(p.live).hostname.replace('www.', '') : p.repo?.replace('https://', '')}</span>
                   </div>
-                  <Image src={p.cover.src} alt={p.cover.alt} widths={[640, 1000, 1400]} sizes="(min-width:1024px) 55vw, 100vw" class="block aspect-[16/10] w-full object-cover object-top" loading="lazy" />
+                  <Image src={(p.hero ?? p.cover).src} alt={(p.hero ?? p.cover).alt} widths={[640, 1000, 1400]} sizes="(min-width:1024px) 55vw, 100vw" class="block aspect-[16/10] w-full object-cover object-top" loading="lazy" />
                 </div>
                 {p.shots.length > 0 && (
                   <div class="mt-3 grid grid-cols-3 gap-3">

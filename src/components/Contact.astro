@@ -14,10 +14,10 @@ const glints = [
   </h2>
   <div class="mt-14 grid gap-14 lg:grid-cols-[1fr_1.2fr]">
     <div data-reveal>
-      <p class="max-w-md text-[15px] leading-relaxed text-white/80">Tell me about your business and what you need. Freelance sites, redesigns, AI agents, maintenance, or a full-time role: I reply within two business days.</p>
+      <p class="max-w-md text-[15px] leading-relaxed text-white/80">Tell me about your business and what you need. Freelance sites, redesigns, AI agents, maintenance, or a full-time role: I’ll get back to you soon.</p>
       <a href={`mailto:${site.email}`} class="mt-8 inline-block text-2xl font-medium underline decoration-candied decoration-2 underline-offset-8 sm:text-3xl">{site.email}</a>
       <ul class="mt-8 flex gap-5 font-mono text-xs">
-        {site.socials.map((s) => <li><a href={s.href} target="_blank" rel="noopener">{s.label} ↗</a></li>)}
+        {site.socials.map((s) => <li><a href={s.href} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center">{s.label} ↗<span class="sr-only"> (opens in a new tab)</span></a></li>)}
       </ul>
     </div>
 
@@ -84,7 +84,7 @@ const glints = [
       const res = await fetch(site.formEndpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
       if (!res.ok) throw new Error(String(res.status));
       form.reset();
-      status.textContent = 'Thanks, your message is on its way. I’ll reply within two business days.';
+      status.textContent = 'Thanks, your message is on its way. I’ll get back to you soon.';
     } catch {
       status.textContent = `That didn’t send. Please email ${site.email} directly.`;
     }

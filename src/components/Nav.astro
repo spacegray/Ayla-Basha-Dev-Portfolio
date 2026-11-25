@@ -34,7 +34,7 @@ const links = [
   <div class="flex flex-wrap items-end justify-between gap-6 font-mono text-xs">
     <a href={`mailto:${site.email}`} class="underline decoration-candied underline-offset-4">{site.email}</a>
     <ul class="flex gap-5">
-      {site.socials.map((s) => <li><a href={s.href} target="_blank" rel="noopener">{s.label} ↗</a></li>)}
+      {site.socials.map((s) => <li><a href={s.href} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center">{s.label} ↗<span class="sr-only"> (opens in a new tab)</span></a></li>)}
     </ul>
   </div>
 </div>

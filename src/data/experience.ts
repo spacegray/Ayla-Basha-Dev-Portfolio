@@ -16,7 +16,7 @@ export const experience: Role[] = [
     title: 'Web designer and developer',
     start: '2025',
     end: 'Present',
-    body: 'Designing, building and maintaining client websites, including the Lanna Parker real estate site and the DJ Ayla Simone artist site, and building AI agent workflows.',
+    body: 'Designing, building and maintaining websites and apps: the Lanna Parker real estate site, the DJ Ayla Simone artist site, the Malachite restaurant concept, Daypad and Neurotype Reader. Building AI agent workflows with Claude Code and MCP.',
     tech: ['Web design', 'JavaScript', 'Claude Code', 'MCP'],
   },
   {
@@ -82,7 +82,7 @@ export const education = [
 
 export const skills = [
   { group: 'Languages', items: ['JavaScript', 'TypeScript', 'Python', 'SQL', 'HTML', 'CSS'] },
-  { group: 'Frontend and mobile', items: ['React', 'React Native', 'Redux', 'Responsive design', 'Accessibility'] },
-  { group: 'Backend and data', items: ['Node.js', 'Express', 'Flask', 'PostgreSQL', 'SQLite', 'GraphQL', 'SQLAlchemy', 'Sequelize'] },
-  { group: 'AI and tools', items: ['Claude Code', 'Agentic workflows', 'MCP', 'ChatGPT', 'AWS', 'Docker', 'Git'] },
+  { group: 'Frontend and mobile', items: ['React', 'React Native', 'Expo', 'Astro', 'Tailwind CSS', 'Zustand', 'Redux', 'Vite', 'Accessibility'] },
+  { group: 'Backend and data', items: ['Node.js', 'Express', 'Flask', 'Cloudflare Workers', 'PostgreSQL', 'SQLite', 'Cloudflare D1', 'Drizzle ORM', 'GraphQL', 'SQLAlchemy', 'Sequelize'] },
+  { group: 'AI and tools', items: ['Claude Code', 'Agentic workflows', 'MCP', 'ChatGPT', 'AWS', 'Vercel', 'Docker', 'Git'] },
 ];
