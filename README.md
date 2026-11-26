@@ -4,7 +4,7 @@
 
 **Full-stack developer and designer. Client websites, mobile and web apps, and agentic AI.**
 
-[Live site](#deploy) · [Case studies](#projects) · [GitHub](https://github.com/spacegray) · [LinkedIn](https://www.linkedin.com/in/aylabasha/)
+[Live site](https://ayla-basha-portfolio.vercel.app) · [Case studies](#projects) · [GitHub](https://github.com/spacegray) · [LinkedIn](https://www.linkedin.com/in/aylabasha/)
 
 ![Astro](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38BDF8?logo=tailwindcss&logoColor=white)
@@ -117,7 +117,7 @@ npm run build
 
 ## Deploy
 
-The build is a static `dist/` folder, deployed on Vercel. On Vercel, canonical URLs and the sitemap use the project's production URL automatically. For a custom domain, set `SITE_URL` (for example `https://aylabasha.com`) in the project's environment variables. To have the contact form post to a form service, set `PUBLIC_FORM_ENDPOINT`.
+The build is a static `dist/` folder, deployed on Vercel at [ayla-basha-portfolio.vercel.app](https://ayla-basha-portfolio.vercel.app). On Vercel, canonical URLs and the sitemap use the project's production URL automatically. For a custom domain, set `SITE_URL` (for example `https://aylabasha.com`) in the project's environment variables. To have the contact form post to a form service, set `PUBLIC_FORM_ENDPOINT`.
 
 ```bash
 npx vercel --prod
